@@ -14,9 +14,9 @@ namespace DataAccessLayer
         {
             List<EntityPersonel> degerler = new List<EntityPersonel>();
             SqlCommand komut1 = new SqlCommand("Select * from TBLBILGI", Baglanti.bgl);
-            if(komut1.Connection.State != ConnectionState.Open)
+            if(komut1.Connection.State != ConnectionState.Open)//bağlantı açık değil ise 
             {
-                komut1.Connection.Open();
+                komut1.Connection.Open();//bağlantıyı aç
             }
             SqlDataReader dr=komut1.ExecuteReader();
             while (dr.Read())
@@ -28,8 +28,7 @@ namespace DataAccessLayer
                 ent.Gorev = dr["GOREV"].ToString();
                 ent.Sehir = dr["SEHIR"].ToString();
                 ent.Maas = short.Parse(dr["MAAS"].ToString());
-                degerler.Add(ent);
-                
+                degerler.Add(ent);              
             }
             dr.Close();
             return degerler;
@@ -37,11 +36,11 @@ namespace DataAccessLayer
 
         public static int PersonelEkle(EntityPersonel p)
         {
-            SqlCommand komut2 = new SqlCommand("Insert into TBLBILGI(AD,SOYAD,GOREV,SEHIR,MAAS) VALUES (@P1,@P2,@P3,@P4,@P5)", Baglanti.bgl);
+            SqlCommand komut2 = new SqlCommand("insert into TBLBILGI(AD,SOYAD,GOREV,SEHIR,MAAS) VALUES (@P1,@P2,@P3,@P4,@P5)", Baglanti.bgl);
 
-            if (komut2.Connection.State != ConnectionState.Open)
+            if (komut2.Connection.State != ConnectionState.Open)//bağlantı açık değil ise
             {
-                komut2.Connection.Open();
+                komut2.Connection.Open();//bağlantıyı aç
             }
 
             komut2.Parameters.AddWithValue("@P1", p.Ad);
@@ -62,7 +61,8 @@ namespace DataAccessLayer
                 komut3.Connection.Open();
             }
             komut3.Parameters.AddWithValue("@P1", p);
-            return komut3.ExecuteNonQuery() > 0;
+            return Convert.ToBoolean(komut3.ExecuteNonQuery()); //Geriye Bool değer döndürmez ise program hata verecektir.Çünkü tanımlama bool ile yapıldı. Aşağıdaki kod satırı da alternatif olarak kullanılabilir.
+            //return komut3.ExecuteNonQuery() > 0; //Yani 1 döndürecek bu da true demektir.
         }
 
         public static bool PersonelGuncelle(EntityPersonel ent)
@@ -72,15 +72,14 @@ namespace DataAccessLayer
             {
                 komut4.Connection.Open();
             }
-
             komut4.Parameters.AddWithValue("@P1", ent.Ad);
             komut4.Parameters.AddWithValue("@P2", ent.Soyad);
             komut4.Parameters.AddWithValue("@P3", ent.Maas);
             komut4.Parameters.AddWithValue("@P4", ent.Sehir);
             komut4.Parameters.AddWithValue("@P5", ent.Gorev);
             komut4.Parameters.AddWithValue("@P6", ent.Id);
-            return komut4.ExecuteNonQuery() > 0;
-
+            return Convert.ToBoolean(komut4.ExecuteNonQuery()); //Geriye Bool değer döndürmez ise program hata verecektir.Çünkü tanımlama bool ile yapıldı. Aşağıdaki kod satırı da alternatif olarak kullanılabilir.
+            //return komut3.ExecuteNonQuery() > 0; //Yani 1 döndürecek bu da true demektir.
         }
 
     }

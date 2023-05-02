@@ -35,6 +35,7 @@ namespace NKatmanliMimari
             ent.Maas = short.Parse(TxtMAAS.Text);
             ent.Gorev = TxtGOREV.Text;
             LogicPersonel.LLPersonelEkle(ent);
+
             MessageBox.Show("Personel Başarıyla Eklendi!");
             textBox1.Text = "";
             TxtAD.Text = "";
@@ -42,7 +43,9 @@ namespace NKatmanliMimari
             TxtGOREV.Text = "";
             TxtMAAS.Text = "";
             TxtSEHIR.Text = "";
-            
+            //Güncel Listeyi Getir
+            List<EntityPersonel> PerList = LogicPersonel.LLPersonelListesi();
+            dataGridView1.DataSource = PerList;
         }
 
         private void BtnSil_Click(object sender, EventArgs e)

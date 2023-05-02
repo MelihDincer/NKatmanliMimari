@@ -16,7 +16,7 @@ namespace LogicLayer
 
         public static int LLPersonelEkle(EntityPersonel p)
         {
-            if (p.Ad != "" && p.Soyad != "" && p.Maas >= 3500 && p.Ad.Length >= 3)
+            if (p.Ad != "" && p.Soyad != "" && p.Maas >= 3500 && p.Ad.Length >= 3) //buradaki koşullar sağlanmadığı sürece ekleme işlemi yapılmayacaktır!!
             {
                 return DALPersonel.PersonelEkle(p);
             }
