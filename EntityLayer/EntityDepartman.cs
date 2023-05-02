@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 namespace EntityLayer
 {
     public class EntityDepartman
-    {
-        private int id;
-        private string ad;
-        private string aciklama;
-
-        public int Id { get => id; set => id = value; }
-        public string Ad { get => ad; set => ad = value; }
-        public string Aciklama { get => aciklama; set => aciklama = value; }
+    {    
+        public int Id { get; set; }
+        public string Ad { get; set; }
+        public string Aciklama { get; set; }
     }
 }
